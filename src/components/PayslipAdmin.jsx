@@ -8,8 +8,8 @@ const AdminPayslipPanel = ({
   handleInputChange,
   handleGenerateSubmit,
   isSubmitting,
-  employeesList,
-  months
+  employeesList=[],
+  months=[],
 }) => {
   if (!isOpen) return null;
 

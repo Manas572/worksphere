@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // <-- Added useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import { 
   Plus, CheckCircle, AlertCircle
 } from 'lucide-react';
@@ -30,8 +30,6 @@ const Payslips = () => {
   const navigate = useNavigate(); 
   const role = useAuthStore((state) => state.role);
   const isAdmin = role === 'ADMIN';
-
-  // Component States
   const [activeTab, setActiveTab] = useState('my_payslips'); 
   const [myPayslips, setMyPayslips] = useState([]);
   const [allPayslips, setAllPayslips] = useState([]);
@@ -87,7 +85,11 @@ const Payslips = () => {
     if (!isAdmin) return;
     try {
       const response = await BackendApi.get('/allemployees/'); 
-      setEmployeesList(response.data);
+      const employeeData = response.data && response.data.results 
+        ? response.data.results 
+        : response.data;
+        
+      setEmployeesList(employeeData);
     } catch (error) {
       console.error("Failed to fetch employees:", error);
     }
