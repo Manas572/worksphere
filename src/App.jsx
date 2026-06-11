@@ -11,7 +11,7 @@ import PrintPayslip from "./pages/PrintPayslip"
 import EmployeeForm from "./components/EmpForm"
 import RequestLeave from "./components/ReqLeave"
 import ViewPayslip from "./pages/PrintPayslip"
-import Payslips from "./pages/payslips"
+import Payslips from "./pages/Payslips"
 
 function App() {
  
