@@ -20,6 +20,7 @@ const Attendance = () => {
   const [isCheckedIn, setIsCheckedIn] = useState(false); 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' }); 
+
   const fetchTableData = useCallback(async (tab, page) => {
     setLoading(true);
     try {
@@ -53,14 +54,20 @@ const Attendance = () => {
       const records = response.data.results ? response.data.results : response.data;
       
       if (records && records.length > 0) {
-        const latestRecord = records[0]; 
-        const today = new Date().toISOString().split('T')[0];
+        const today = new Date();
+        const localTodayStr = today.getFullYear() + '-' + 
+                              String(today.getMonth() + 1).padStart(2, '0') + '-' + 
+                              String(today.getDate()).padStart(2, '0');
+      
+        const todayRecord = records.find(r => r.date === localTodayStr);
         
-        if (latestRecord.date === today && !latestRecord.check_out) {
+        if (todayRecord && !todayRecord.check_out) {
           setIsCheckedIn(true);
         } else {
           setIsCheckedIn(false);
         }
+      } else {
+        setIsCheckedIn(false);
       }
     } catch (error) {
       console.error("Error fetching punch status:", error);
@@ -94,9 +101,8 @@ const Attendance = () => {
         setIsCheckedIn(false);
         setMessage({ type: 'success', text: response.data.message || 'Checked out successfully!' });
       }
-      
-      fetchPunchStatus();
-      fetchTableData(activeTab, currentPage);
+      await fetchTableData(activeTab, currentPage);
+      await fetchPunchStatus();
       
     } catch (error) {
       console.error("Punch error:", error);
