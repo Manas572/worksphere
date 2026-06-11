@@ -5,13 +5,13 @@ import Layout from "./pages/Layout"
 import Employees from "./pages/Employees"
 import Dashboard from "./pages/Dashboard"
 import Leave from "./pages/Leave"
-import Payslips from "./pages/payslips"
 import Attendance from "./pages/Attendance"
 import LoginForm from "./components/LoginForm"
 import PrintPayslip from "./pages/PrintPayslip"
 import EmployeeForm from "./components/EmpForm"
 import RequestLeave from "./components/ReqLeave"
 import ViewPayslip from "./pages/PrintPayslip"
+import Payslips from "./pages/payslips"
 
 function App() {
  
